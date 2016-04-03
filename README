@@ -1,0 +1,13 @@
+[DESCRIPTION]
+A simple example that shows how to control a GRC transmitter from a java application using a ZMQ pub/sub interface.
+
+[HOW TO RUN]
+python command_hopper_modified.py
+java -jar controller.jar 10000 10
+
+[COMPONENTS]
+- command_hopper_modified.py is the python file generated from the GRC file command_hopper.grc. Although it has been modified to incorporate a ZMQ subscriber interface. This subscriber runs in a seperate thread.  The thread is started from the GRC command_hopper block init method, and passed the command_hopper block method to change_freq.
+
+- controller.jar is a java application with a zmq publisher, that publishes a single integer. It will do this 'N' times and wait 'X' msec between publishes.  Usage: java -jar controller.jar X N
+
+-  testReceiverCommand.jar is a java application with a zmq subscriber, that simples prints the integer it receives from the publisher over a loopback connection.
